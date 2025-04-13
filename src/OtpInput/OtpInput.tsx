@@ -24,6 +24,8 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
     textInputProps,
     textProps,
     type = "numeric",
+    separatorIndex,
+    separator,
   } = props;
   const {
     containerStyle,
@@ -77,34 +79,41 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
           const isFocusedContainer = isFocusedInput || (isFilledLastInput && Boolean(isFocused));
 
           return (
-            <Pressable
-              key={`${char}-${index}`}
-              disabled={disabled}
-              onPress={handlePress}
-              style={generatePinCodeContainerStyle(isFocusedContainer, char)}
-              testID="otp-input"
-            >
-              {isFocusedInput && !hideStick ? (
-                <VerticalStick
-                  focusColor={focusColor}
-                  style={focusStickStyle}
-                  focusStickBlinkingDuration={focusStickBlinkingDuration}
-                />
-              ) : (
-                <Text
-                  {...textProps}
-                  testID={textProps?.testID ? `${textProps.testID}-${index}` : undefined}
-                  style={[
-                    styles.codeText,
-                    pinCodeTextStyle,
-                    isPlaceholderCell ? placeholderStyle : {},
-                    textProps?.style,
-                  ]}
-                >
-                  {char && secureTextEntry ? "•" : char}
-                </Text>
+            <React.Fragment key={`${char}-${index}`}>
+              {/* Render OTP digit */}
+              <Pressable
+                disabled={disabled}
+                onPress={handlePress}
+                style={generatePinCodeContainerStyle(isFocusedContainer, char)}
+                testID="otp-input"
+              >
+                {isFocusedInput && !hideStick ? (
+                  <VerticalStick
+                    focusColor={focusColor}
+                    style={focusStickStyle}
+                    focusStickBlinkingDuration={focusStickBlinkingDuration}
+                  />
+                ) : (
+                  <Text
+                    {...textProps}
+                    testID={textProps?.testID ? `${textProps.testID}-${index}` : undefined}
+                    style={[
+                      styles.codeText,
+                      pinCodeTextStyle,
+                      isPlaceholderCell ? placeholderStyle : {},
+                      textProps?.style,
+                    ]}
+                  >
+                    {char && secureTextEntry ? "•" : char}
+                  </Text>
+                )}
+              </Pressable>
+
+              {/* Render separator after specified index */}
+              {separatorIndex === index + 1 && (
+                <View style={{ width: 8 }} /> // puedes personalizar esto
               )}
-            </Pressable>
+            </React.Fragment>
           );
         })}
       <TextInput
