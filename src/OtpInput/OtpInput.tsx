@@ -111,7 +111,7 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
 
               {/* Render separator after specified index */}
               {separatorIndex === index + 1 && (
-                <View style={{ width: 8 }} /> // puedes personalizar esto
+                separator
               )}
             </React.Fragment>
           );

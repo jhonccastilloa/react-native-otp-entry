@@ -19,7 +19,7 @@ export interface OtpInputProps {
   type?: "alpha" | "numeric" | "alphanumeric";
   placeholder?: string;
   separatorIndex?: number;
-  separator?: React.ReactNode;
+  separator?: JSX.Element;
 }
 
 export interface OtpInputRef {
