@@ -20,7 +20,7 @@ export interface OtpInputProps {
   placeholder?: string;
   separatorIndex?: number;
   separator?: JSX.Element;
-  allowedRegex: RegExp;
+  allowedRegex?: RegExp;
 }
 
 export interface OtpInputRef {
