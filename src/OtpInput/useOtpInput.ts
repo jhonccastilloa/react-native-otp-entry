@@ -19,6 +19,7 @@ export const useOtpInput = ({
   onFocus,
   onBlur,
   placeholder: _placeholder,
+  allowedRegex,
 }: OtpInputProps) => {
   const [text, setText] = useState("");
   const [isFocused, setIsFocused] = useState(autoFocus);
@@ -38,12 +39,28 @@ export const useOtpInput = ({
   };
 
   const handleTextChange = (value: string) => {
-    if (type && regexMap[type].test(value)) return;
     if (disabled) return;
-    setText(value);
-    onTextChange?.(value);
-    if (value.length === numberOfDigits) {
-      onFilled?.(value);
+  
+    let filtered = value;
+  
+    if (allowedRegex) {
+      filtered = value
+        .split("")
+        .filter((char) => allowedRegex.test(char))
+        .join("");
+    } else if (type && regexMap[type]) {
+      filtered = value.replace(regexMap[type], "");
+    }
+  
+    if (filtered.length > numberOfDigits) {
+      filtered = filtered.slice(0, numberOfDigits);
+    }
+  
+    setText(filtered);
+    onTextChange?.(filtered);
+  
+    if (filtered.length === numberOfDigits) {
+      onFilled?.(filtered);
       blurOnFilled && inputRef.current?.blur();
     }
   };
