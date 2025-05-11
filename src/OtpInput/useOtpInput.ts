@@ -40,25 +40,22 @@ export const useOtpInput = ({
 
   const handleTextChange = (value: string) => {
     if (disabled) return;
-  
+
     let filtered = value;
-  
+
     if (allowedRegex) {
-      filtered = value
-        .split("")
-        .filter((char) => allowedRegex.test(char))
-        .join("");
+      filtered = text.replace(allowedRegex, '');
     } else if (type && regexMap[type]) {
       filtered = value.replace(regexMap[type], "");
     }
-  
+
     if (filtered.length > numberOfDigits) {
       filtered = filtered.slice(0, numberOfDigits);
     }
-  
+
     setText(filtered);
     onTextChange?.(filtered);
-  
+
     if (filtered.length === numberOfDigits) {
       onFilled?.(filtered);
       blurOnFilled && inputRef.current?.blur();
