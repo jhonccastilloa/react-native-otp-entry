@@ -22,6 +22,15 @@ export const styles = StyleSheet.create({
   hiddenInput: {
     ...StyleSheet.absoluteFillObject,
     zIndex: -1,
+    ...Platform.select({
+      ios: {
+        opacity: 0.02,
+        color: 'transparent',
+      },
+      default: {
+        opacity: 0,
+      },
+    }),
   },
   stick: {
     width: 2,
