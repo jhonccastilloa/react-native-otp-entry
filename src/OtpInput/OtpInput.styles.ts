@@ -1,3 +1,4 @@
+te paso el style
 import { Platform, StyleSheet } from "react-native";
 
 export const styles = StyleSheet.create({
@@ -19,11 +20,16 @@ export const styles = StyleSheet.create({
     fontSize: 28,
   },
   hiddenInput: {
-    position: "absolute",
-    width: 1,
-    height: 1,
-    opacity: 0,
-    color: "transparent",
+    ...StyleSheet.absoluteFillObject,
+    ...Platform.select({
+      ios: {
+        opacity: 0.02,
+        color: "transparent",
+      },
+      default: {
+        // opacity: 0,
+      },
+    }),
   },
   stick: {
     width: 2,
@@ -31,3 +37,4 @@ export const styles = StyleSheet.create({
     backgroundColor: "green",
   },
 });
+para ver 
