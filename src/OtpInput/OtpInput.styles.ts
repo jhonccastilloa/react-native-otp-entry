@@ -19,16 +19,11 @@ export const styles = StyleSheet.create({
     fontSize: 28,
   },
   hiddenInput: {
-    ...StyleSheet.absoluteFillObject,
-    ...Platform.select({
-      ios: {
-        opacity: 0.02,
-        color: "transparent",
-      },
-      default: {
-        opacity: 0,
-      },
-    }),
+    position: "absolute",
+    width: 1,
+    height: 1,
+    opacity: 0,
+    color: "transparent",
   },
   stick: {
     width: 2,
