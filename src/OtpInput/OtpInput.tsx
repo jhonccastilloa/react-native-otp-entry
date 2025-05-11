@@ -86,6 +86,7 @@ export const OtpInput = forwardRef<OtpInputRef, OtpInputProps>((props, ref) => {
                 onPress={handlePress}
                 style={generatePinCodeContainerStyle(isFocusedContainer, char)}
                 testID="otp-input"
+                onStartShouldSetResponder={() => false}
               >
                 {isFocusedInput && !hideStick ? (
                   <VerticalStick
